@@ -1,0 +1,7 @@
+pygame>=2.1
+numpy>=1.21
+torch>=1.12 # or torch>=2.0 depending on your GPU/CUDA setup
+matplotlib
+opencv-python-headless
+gymnasium>=0.29
+tqdm
