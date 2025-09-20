@@ -34,3 +34,24 @@ class FlappyGame:
         self.running = True
         self.bird.alive = True
         return self.get_state()
+    
+
+
+    def step(self, action):
+        # action: 0 nothing, 1 flap
+        if int(action) == 1:
+            self.bird.flap()
+        self.bird.update()
+        # spawn pipes
+        if self.spawn_timer <= 0:
+            gap_y = random_pipe_gap(self.gap_size)
+            self.world.spawn_pipe(settings.SCREEN_WIDTH + 10, gap_y, gap_size=self.gap_size)
+            self.spawn_timer = self.spawn_interval
+        else:
+            self.spawn_timer -= 1
+        self.world.update()
+
+        # collisions and rewards
+        done = False
+        reward = 0.0
+        
