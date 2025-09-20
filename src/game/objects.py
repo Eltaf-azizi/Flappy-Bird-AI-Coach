@@ -58,3 +58,16 @@ class World:
         self.pipes = []
         self.frame_count = 0
         self.score = 0
+
+
+    def spawn_pipe(self, x, gap_y, gap_size=settings.PIPE_GAP_SIZE):
+        self.pipes.append(Pipe(x, gap_y, gap_size))
+
+
+
+    def update(self):
+        for p in self.pipes:
+            p.update()
+        # remove off-screen pipes (keep a little buffer)
+        self.pipes = [p for p in self.pipes if p.x + p.width > -50]
+        self.frame_count += 1
