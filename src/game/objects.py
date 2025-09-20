@@ -37,3 +37,24 @@ class Pipe:
         self.bottom_rect = pygame.Rect(int(self.x), int(self.gap_y + self.gap_size),
                                        self.width, settings.SCREEN_HEIGHT - int(self.gap_y + self.gap_size))
         self.passed = False
+
+    
+
+    def update(self):
+        self.x -= settings.PIPE_SPEED
+        self.top_rect.topleft = (int(self.x), 0)
+        self.bottom_rect.topleft = (int(self.x), int(self.gap_y + self.gap_size))
+
+
+
+    def collides_with(self, bird_rect):
+        return self.top_rect.colliderect(bird_rect) or self.bottom_rect.colliderect(bird_rect)
+
+
+
+
+class World:
+    def __init__(self):
+        self.pipes = []
+        self.frame_count = 0
+        self.score = 0
