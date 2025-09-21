@@ -116,3 +116,28 @@ class FlappyGame:
         pygame.display.flip()
         self.clock.tick(settings.FPS)
 
+
+
+    def close(self):
+        pygame.quit()
+
+
+
+if __name__ == '__main__':
+    game = FlappyGame(render=True)
+    state = game.reset()
+    while True:
+        action = 0
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                game.close()
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    action = 1
+        state, reward, done, info = game.step(action)
+        game.render_frame()
+        if done:
+            print("Died. Score:", info.get("score"))
+            time.sleep(1.0)
+            state = game.reset()
