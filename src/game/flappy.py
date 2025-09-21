@@ -54,4 +54,29 @@ class FlappyGame:
         # collisions and rewards
         done = False
         reward = 0.0
-        
+        # ground or ceiling collision
+        if self.bird.y <= 0 or (self.bird.y + self.bird.height) >= settings.SCREEN_HEIGHT:
+            done = True
+            reward = -1.0
+            self.bird.alive = False
+
+        # pipe collisions and score
+        for p in self.world.pipes:
+            if p.collides_with(self.bird.rect):
+                done = True
+                reward = -1.0
+                self.bird.alive = False
+                break
+            if not p.passed and (p.x + p.width) < self.bird.x:
+                p.passed = True
+                self.world.score += 1
+                reward = 1.0
+
+        # living penalty to encourage progress
+        if not done and reward == 0.0:
+            reward = -0.01
+
+        state = self.get_state()
+        info = {"score": self.world.score}
+        return state, reward, done, info
+    
