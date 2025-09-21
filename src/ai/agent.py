@@ -21,3 +21,21 @@ class DQN(nn.Module):
             nn.ReLU(),
             nn.Linear(64, out_dim)
         )
+
+    
+    def forward(self, x):
+        return self.net(x)
+
+
+
+class ReplayBuffer:
+    def __init__(self, capacity=settings.BUFFER_SIZE):
+        self.buffer = deque(maxlen=int(capacity))
+
+
+    def push(self, state, action, reward, next_state, done):
+        self.buffer.append((np.array(state, dtype=np.float32),
+                            int(action),
+                            float(reward),
+                            np.array(next_state, dtype=np.float32),
+                            float(done)))
