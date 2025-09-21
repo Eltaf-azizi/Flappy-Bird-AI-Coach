@@ -80,3 +80,21 @@ class FlappyGame:
         info = {"score": self.world.score}
         return state, reward, done, info
     
+
+
+    def get_state(self):
+        next_pipe = get_next_pipe(self.bird.x, self.world.pipes)
+        if next_pipe is None:
+            dist = settings.SCREEN_WIDTH
+            top_y = settings.SCREEN_HEIGHT // 2
+        else:
+            dist = next_pipe.x - self.bird.x
+            top_y = next_pipe.gap_y
+        # normalized state
+        return [
+            self.bird.y / settings.SCREEN_HEIGHT,
+            (self.bird.vel + abs(settings.FLAP_VELOCITY)) / (abs(settings.FLAP_VELOCITY) + settings.MAX_DROP_SPEED),
+            dist / settings.SCREEN_WIDTH,
+            top_y / settings.SCREEN_HEIGHT
+        ]
+    
