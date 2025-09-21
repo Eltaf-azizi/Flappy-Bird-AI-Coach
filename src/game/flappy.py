@@ -98,3 +98,21 @@ class FlappyGame:
             top_y / settings.SCREEN_HEIGHT
         ]
     
+
+
+    def render_frame(self):
+        if not self.render:
+            return
+        self.screen.fill((135, 206, 235))  # sky
+        # pipes
+        for p in self.world.pipes:
+            pygame.draw.rect(self.screen, (34, 139, 34), p.top_rect)
+            pygame.draw.rect(self.screen, (34, 139, 34), p.bottom_rect)
+        # bird
+        pygame.draw.rect(self.screen, (255, 223, 0), self.bird.rect)
+        # score
+        score_surf = self.font.render(f"Score: {self.world.score}", True, (0, 0, 0))
+        self.screen.blit(score_surf, (10, 10))
+        pygame.display.flip()
+        self.clock.tick(settings.FPS)
+
