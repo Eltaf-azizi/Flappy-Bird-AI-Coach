@@ -102,4 +102,22 @@ class Agent:
     def learn(self, batch_size=settings.BATCH_SIZE):
         if len(self.replay) < batch_size:
             return None
-     
+        
+        s, a, r, ns, d = self.replay.sample(batch_size)
+        s = torch.tensor(s, dtype=torch.float32, device=DEVICE)
+        a = torch.tensor(a, dtype=torch.int64, device=DEVICE).unsqueeze(1)
+        r = torch.tensor(r, dtype=torch.float32, device=DEVICE).unsqueeze(1)
+        ns = torch.tensor(ns, dtype=torch.float32, device=DEVICE)
+        d = torch.tensor(d, dtype=torch.float32, device=DEVICE).unsqueeze(1)
+
+        q_vals = self.policy_net(s).gather(1, a)
+        with torch.no_grad():
+            q_next = self.target_net(ns).max(1)[0].unsqueeze(1)
+            q_target = r + (1.0 - d) * self.gamma * q_next
+        loss = nn.functional.mse_loss(q_vals, q_target)
+        self.optimizer.zero_grad()
+        loss.backward()
+        self.optimizer.step()
+        return float(loss.item())
+
+   
