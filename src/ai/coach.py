@@ -26,3 +26,22 @@ class Coach:
                 return 1, 0.6
             return 0, 0.6
         
+        else:
+            self.agent.policy_net.eval()
+            with torch.no_grad():
+                s = torch.tensor(state, dtype=torch.float32).unsqueeze(0)
+                q = self.agent.policy_net(s)
+                probs = torch.nn.functional.softmax(q, dim=1).cpu().numpy()[0]
+                action = int(probs.argmax())
+                confidence = float(probs.max())
+                return action, confidence
+
+
+
+    def adjust_difficulty(self, game):
+        score = game.world.score
+        # naive rule: if low score, increase gap_size (easier). if high score, reduce gap_size (harder).
+        if score < 3:
+            game.gap_size = min(game.gap_size + coach_config.DIFFICULTY_ADJUST_STEP, coach_config.MAX_GAP)
+        else:
+            game.gap_size = max(game.gap_size - coach_config.DIFFICULTY_ADJUST_STEP, coach_config.MIN_GAP)
