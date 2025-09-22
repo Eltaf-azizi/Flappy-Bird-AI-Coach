@@ -120,4 +120,23 @@ class Agent:
         self.optimizer.step()
         return float(loss.item())
 
+
+
+    def update_target(self):
+        self.target_net.load_state_dict(self.policy_net.state_dict())
+
+
+
+    def save(self, path):
+        os.makedirs(os.path.dirname(path) or '.', exist_ok=True)
+        torch.save(self.policy_net.state_dict(), path)
+
+
+
+    def load(self, path):
+        if not os.path.exists(path):
+            raise FileNotFoundError(f"Model file not found: {path}")
+        self.policy_net.load_state_dict(torch.load(path, map_location=DEVICE))
+        self.target_net.load_state_dict(self.policy_net.state_dict())
+
    
