@@ -86,3 +86,20 @@ class Agent:
         self.steps += 1
         return action
     
+
+
+    def epsilon(self):
+        # linear decay
+        return max(self.eps_end, self.eps_start - (self.eps_start - self.eps_end) * (self.steps / max(1, self.eps_decay)))
+
+
+
+    def push(self, state, action, reward, next_state, done):
+        self.replay.push(state, action, reward, next_state, done)
+
+
+
+    def learn(self, batch_size=settings.BATCH_SIZE):
+        if len(self.replay) < batch_size:
+            return None
+     
