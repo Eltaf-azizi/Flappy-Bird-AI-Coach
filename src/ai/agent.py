@@ -64,3 +64,25 @@ class Agent:
         self.eps_end = 0.01
         self.eps_decay = 20000  # steps to decay
         self.gamma = settings.GAMMA
+
+
+    
+    def act(self, state, eval_mode=False):
+        # epsilon-greedy
+        eps = self.epsilon()
+        if eval_mode:
+            with torch.no_grad():
+                s = torch.tensor(state, dtype=torch.float32, device=DEVICE).unsqueeze(0)
+                q = self.policy_net(s)
+                return int(torch.argmax(q, dim=1).item())
+        # training mode
+        if random.random() > eps:
+            with torch.no_grad():
+                s = torch.tensor(state, dtype=torch.float32, device=DEVICE).unsqueeze(0)
+                q = self.policy_net(s)
+                action = int(torch.argmax(q, dim=1).item())
+        else:
+            action = random.randrange(settings.ACTION_SIZE)
+        self.steps += 1
+        return action
+    
