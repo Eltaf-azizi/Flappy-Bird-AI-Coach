@@ -20,3 +20,21 @@ def main(mode='hint', model_path=None):
     state = game.reset()
     last_hint = 0.0
 
+
+    try:
+        while True:
+            action = 0
+            for event in __import__('pygame').event.get():
+                if event.type == __import__('pygame').QUIT:
+                    game.close()
+                    return
+                elif event.type == __import__('pygame').KEYDOWN:
+                    if event.key == __import__('pygame').K_SPACE:
+                        action = 1
+
+            # Step the game
+            state, reward, done, info = game.step(action)
+
+            # Coach behavior
+            now = time.time()
+
