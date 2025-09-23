@@ -42,3 +42,29 @@ def train(episodes=settings.TRAIN_EPISODES, save_path=os.path.join(MODEL_DIR, 'b
             if done:
                 break
             
+        
+        rewards_log.append(ep_reward)
+        # save best by score
+        score = info.get('score', 0)
+        if score > best_score:
+            best_score = score
+            agent.save(save_path)
+        # periodic checkpoint
+        if ep % 25 == 0:
+            ckpt_path = os.path.join(CHECKPOINT_DIR, f'ckpt_ep{ep}.pth')
+            agent.save(ckpt_path)
+
+        # save simple rewards log (append)
+        with open(os.path.join(LOG_DIR, 'rewards.log'), 'a') as f:
+            f.write(json.dumps({'episode': ep, 'reward': ep_reward, 'score': int(info.get('score', 0))}) + "\n")
+
+    duration = time.time() - start_time
+    print(f"Training finished. Time: {duration:.1f}s. Best score: {best_score}")
+    env.close()
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--episodes', type=int, default=settings.TRAIN_EPISODES)
+    parser.add_argument('--save', default=os.path.join(MODEL_DIR, 'best_model.pth'))
+    args = parser.parse_args()
+    train(episodes=args.episodes, save_path=args.save)
