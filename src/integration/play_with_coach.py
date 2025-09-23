@@ -38,3 +38,29 @@ def main(mode='hint', model_path=None):
             # Coach behavior
             now = time.time()
 
+
+            if coach.mode == 'hint' and (now - last_hint) >= 1.0:
+                suggestion, conf = coach.suggest(state)
+                print(f"Coach suggests: {'FLAP' if suggestion==1 else 'NOOP'} (confidence {conf:.2f})")
+                last_hint = now
+            elif coach.mode == 'auto_difficulty':
+                coach.adjust_difficulty(game)
+
+            game.render_frame()
+
+            if done:
+                print('Died. Score:', info.get('score'))
+                time.sleep(1)
+                state = game.reset()
+
+    except KeyboardInterrupt:
+        game.close()
+
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--mode', default='hint', choices=['hint', 'auto_difficulty'])
+    parser.add_argument('--model', default=None)
+    args = parser.parse_args()
+    main(mode=args.mode, model_path=args.model)
