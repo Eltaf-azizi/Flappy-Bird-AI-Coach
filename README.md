@@ -39,3 +39,21 @@ The goal of this project is to learn RL basics, integrate them into a game, and 
     ├── models/                   # Saved RL models
     ├── logs/                     # Training logs & coach feedback
     └── docs/                     # Documentation and notes
+
+
+## ⚙️ Setup & Installation
+1. Clone the Repository
+```
+git clone https://github.com/your-username/flappy-bird-ai-coach.git
+cd flappy-bird-ai-coach
+```
+2. Create Virtual Environment (Optional but recommended)
+```
+python -m venv venv
+source venv/bin/activate    # Mac/Linux
+venv\Scripts\activate       # Windows
+```
+3. Install Dependencies
+```
+pip install -r requirements.txt
+```
