@@ -96,3 +96,10 @@ Inside the `docs/` folder:
  - `project_plan.md` → High-level goals and roadmap.
  - `rl_basics.md` → Key RL concepts applied here.
  - `future_improvements.md` → Ideas to expand the project.
+
+## 🚀 Future Improvements
+
+ - Add PPO or A2C agents for better training performance.
+ - Implement a web-based version using Flask or Streamlit.
+ - Add leaderboards and competitive training.
+ - Extend AI coach with voice/text feedback.
