@@ -80,15 +80,19 @@ Visualize Training Progress
 ## 📊 Features
 
  - Playable Flappy Bird game built with Pygame.
-
  - RL Agent (DQN-based) to learn the game.
-
  - AI Coach that:
-
    - Gives feedback or hints.
-
    - Dynamically adjusts difficulty (pipe gap, speed).
-
  - Visualization tools for training metrics.
-
  - Logs & checkpoints for reproducibility.
+
+
+## 📖 Learning Notes
+
+This project is structured as both a fun game and a learning journey.
+Inside the `docs/` folder:
+
+ - `project_plan.md` → High-level goals and roadmap.
+ - `rl_basics.md` → Key RL concepts applied here.
+ - `future_improvements.md` → Ideas to expand the project.
