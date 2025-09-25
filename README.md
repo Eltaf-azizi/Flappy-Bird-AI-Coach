@@ -12,3 +12,30 @@ The goal of this project is to learn RL basics, integrate them into a game, and 
  - Build an AI “coach” that adapts to the player:
    - Give hints when the player struggles.
    - Adjust difficulty dynamically for balanced gameplay.
+
+
+## Project Structure
+
+    flappy-bird-ai-coach/
+    ├── README.md                 # Project overview, setup, usage, learning goals
+    ├── requirements.txt          # Python dependencies
+    ├── .gitignore                # Ignore unnecessary files
+    │
+    ├── assets/                   # Game assets (sprites, backgrounds, sounds)
+    │   ├── sprites/
+    │   ├── sounds/
+    │   └── fonts/
+    │
+    ├── config/                   
+    │   ├── settings.py           # Game & training settings
+    │   └── coach_config.py       # AI coach configuration
+    │
+    ├── src/
+    │   ├── game/                 # Game logic (Pygame)
+    │   ├── ai/                   # RL agent, environment, coach, training loop
+    │   ├── integration/          # Play, train, evaluate scripts
+    │   └── visualization/        # Training plots, demo recorder
+    │
+    ├── models/                   # Saved RL models
+    ├── logs/                     # Training logs & coach feedback
+    └── docs/                     # Documentation and notes
