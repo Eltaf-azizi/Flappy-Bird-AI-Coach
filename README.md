@@ -57,3 +57,21 @@ venv\Scripts\activate       # Windows
 ```
 pip install -r requirements.txt
 ```
+
+
+## ▶️ Usage
+Play the Game with AI Coach
+
+    python src/integration/play_with_coach.py
+
+Train the RL Agent
+
+    python src/integration/train_agent.py
+
+Evaluate the Trained Agent
+
+    python src/integration/evaluate_agent.py
+
+Visualize Training Progress
+
+    python src/visualization/plot_training.py
