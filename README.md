@@ -103,3 +103,14 @@ Inside the `docs/` folder:
  - Implement a web-based version using Flask or Streamlit.
  - Add leaderboards and competitive training.
  - Extend AI coach with voice/text feedback.
+
+
+## 🙌 Contributing
+
+ - Contributions are welcome!
+ - Fork the project
+ - Create a new branch (`feature/awesome-feature`)
+ - Commit your changes
+ - Open a Pull Request
+ - 
+<h3 align="center">Happy Coding!</h3>
