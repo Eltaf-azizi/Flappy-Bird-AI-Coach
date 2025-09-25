@@ -75,3 +75,20 @@ Evaluate the Trained Agent
 Visualize Training Progress
 
     python src/visualization/plot_training.py
+
+
+## 📊 Features
+
+ - Playable Flappy Bird game built with Pygame.
+
+ - RL Agent (DQN-based) to learn the game.
+
+ - AI Coach that:
+
+   - Gives feedback or hints.
+
+   - Dynamically adjusts difficulty (pipe gap, speed).
+
+ - Visualization tools for training metrics.
+
+ - Logs & checkpoints for reproducibility.
